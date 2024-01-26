@@ -11,7 +11,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
-@Repository
+//@Repository
 public class JdbcMemberRepository implements MemberRepository {
 
     private final DataSource dataSource;

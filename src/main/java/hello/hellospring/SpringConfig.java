@@ -13,14 +13,19 @@ import javax.sql.DataSource;
 @Configuration
 public class SpringConfig {
 
-    private final DataSource dataSource;
-    private final EntityManager em;
-
-    @Autowired
-    public SpringConfig(DataSource dataSource, EntityManager em) {
-        this.dataSource = dataSource;
-        this.em = em;
+    private final MemberRepository memberRepository;
+    
+    public SpringConfig(MemberRepository memberRepository) {
+        this.memberRepository = memberRepository;
     }
+//    private final DataSource dataSource;
+//    private final EntityManager em;
+//
+//    @Autowired
+//    public SpringConfig(DataSource dataSource, EntityManager em) {
+//        this.dataSource = dataSource;
+//        this.em = em;
+//    }
 
 //    @Autowired
 //    public SpringConfig(DataSource dataSource) {
@@ -30,14 +35,15 @@ public class SpringConfig {
 
     @Bean
     public MemberService memberService() {
-        return new MemberService(memberRepository());
+        return new MemberService(memberRepository);
     }
 
-    @Bean
-    public MemberRepository memberRepository() {
-        return new JpaMemberRepository(em);
-//        return new JdbcTemplateMemberRepository(dataSource);
-//        return new JdbcMemberRepository(dataSource);
-//        return new MemoryMemberRepository();
-    }
+//    @Bean
+//    public MemberRepository memberRepository() {
+////        return new
+////        return new JpaMemberRepository(em);
+////        return new JdbcTemplateMemberRepository(dataSource);
+////        return new JdbcMemberRepository(dataSource);
+////        return new MemoryMemberRepository();
+//    }
 }
