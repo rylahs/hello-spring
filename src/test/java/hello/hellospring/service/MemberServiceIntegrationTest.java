@@ -22,18 +22,39 @@ class MemberServiceIntegrationTest {
 
 
     @Test
-    public void join() {
-// given
+    @DisplayName("회원 가입")
+    public void join() throws Exception {
+        // given
         Member member = new Member();
         member.setName("MintRisha");
-
-
         // when
         Long saveId = memberService.join(member);
 
         // then
         Member findMember = memberService.findOne(saveId).get();
         assertThat(member.getName()).isEqualTo(findMember.getName());
-
     }
+
+    @Test
+    @DisplayName("회원가입 중복 테스트")
+    public void join_duplicate() throws Exception {
+        // given
+        Member member1 = new Member();
+        member1.setName("spring");
+
+        Member member2 = new Member();
+        member2.setName("spring");
+
+
+        // when
+        memberService.join(member1);
+
+        IllegalStateException e = assertThrows(IllegalStateException.class,
+                () -> memberService.join(member2));
+
+
+        // then
+        assertThat(e.getMessage()).isEqualTo("이미 존재하는 회원입니다.");
+    }
+
 }
